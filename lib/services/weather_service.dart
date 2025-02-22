@@ -8,13 +8,7 @@ class WeatherService {
   final String geoBaseUrl = "https://api.openweathermap.org/geo/1.0/direct";
   final String oneCallUrl = "https://api.openweathermap.org/data/3.0/onecall";
 
-  final Map<String, WeatherModel> _cache = {};
-
   Future<WeatherModel> fetchWeather(String cityName) async {
-    if (_cache.containsKey(cityName)) {
-      return _cache[cityName]!;
-    }
-
     final String apiKey = dotenv.env['API_KEY'] ?? "";
     final String url = "$baseUrl?q=$cityName&appid=$apiKey&units=metric";
 
@@ -22,10 +16,7 @@ class WeatherService {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      final weather = WeatherModel.fromJson(data);
-
-      _cache[cityName] = weather;
-      return weather;
+      return WeatherModel.fromJson(data);
     } else {
       throw Exception("Failed to fetch weather data");
     }

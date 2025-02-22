@@ -13,8 +13,6 @@ class WeatherProvider with ChangeNotifier {
   WeatherModel? _weather;
   List<String> _citySuggestions = [];
 
-  final Map<String, List<String>> _citySuggestionsCache = {};
-
   WeatherModel? get weather => _weather;
   bool get isLoading => _isLoading;
   String get errorMessage => _errorMessage;
@@ -27,7 +25,6 @@ class WeatherProvider with ChangeNotifier {
       notifyListeners();
 
       _weather = await _weatherService.fetchWeather(cityName);
-      _citySuggestionsCache[cityName] = [_weather!.cityName];
 
     } catch (e) {
       _errorMessage = "An error occurred: $e";
@@ -62,12 +59,7 @@ class WeatherProvider with ChangeNotifier {
         _citySuggestions.add(_weather!.cityName);
       }
     } else {
-      if (_citySuggestionsCache.containsKey(query)) {
-        _citySuggestions = _citySuggestionsCache[query]!;
-      } else {
-        _citySuggestions = await _weatherService.fetchCitySuggestions(query);
-        _citySuggestionsCache[query] = _citySuggestions;
-      }
+      _citySuggestions = await _weatherService.fetchCitySuggestions(query);
     }
 
     notifyListeners();
