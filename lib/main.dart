@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:skycast/core/router/app_router.dart';
 import 'package:skycast/providers/theme_provider.dart';
 import 'package:skycast/providers/weather_provider.dart';
+import 'package:skycast/providers/weather_units_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => WeatherProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => WeatherUnitsProvider()),
       ],
       child: MyApp(),
     ),
