@@ -26,7 +26,8 @@ class WeatherModel with _$WeatherModel {
   factory WeatherModel.fromJson(Map<String, dynamic> json) => _$WeatherModelFromJson(json);
 
   String get cityName => name;
-  String get weatherIcon => weather.isNotEmpty ? weather[0].icon : "Unknown";
+  String get weatherIcon => weather[0].iconUrl;
+  // String get weatherIcon => weather.isNotEmpty ? weather[0].icon : "Unknown";
   String get description => weather.isNotEmpty ? weather[0].description : "Unknown";
   double get temperature => main.temp;
   double get tempMin => main.tempMin;
@@ -42,6 +43,7 @@ class WeatherModel with _$WeatherModel {
   int get sunrise => sys.sunrise;
   int get sunset => sys.sunset;
   int get cloudiness => clouds.all;
+  
 }
 
 @freezed
@@ -83,10 +85,14 @@ class Clouds with _$Clouds {
 
 @freezed
 class Weather with _$Weather {
+  const Weather._();
+
   const factory Weather({required int id, required String main, required String description, required String icon}) =
       _Weather;
 
   factory Weather.fromJson(Map<String, dynamic> json) => _$WeatherFromJson(json);
+
+  String get iconUrl => "https://openweathermap.org/img/wn/$icon@2x.png";
 }
 
 @freezed

@@ -8,9 +8,9 @@ class WeatherService {
   final String geoBaseUrl = "https://api.openweathermap.org/geo/1.0/direct";
   final String oneCallUrl = "https://api.openweathermap.org/data/3.0/onecall";
 
-  Future<WeatherModel> fetchWeather(String cityName) async {
+  Future<WeatherModel> fetchWeather(String cityName, String unit) async {
     final String apiKey = dotenv.env['API_KEY'] ?? "";
-    final String url = "$baseUrl?q=$cityName&appid=$apiKey&units=metric";
+    final String url = "$baseUrl?q=$cityName&appid=$apiKey&units=$unit";
 
     final response = await http.get(Uri.parse(url));
 
@@ -22,9 +22,9 @@ class WeatherService {
     }
   }
 
-  Future<WeatherModel> fetchWeatherByLocation(double lat, double lon) async {
+  Future<WeatherModel> fetchWeatherByLocation(double lat, double lon, String unit) async {
     final String apiKey = dotenv.env['API_KEY'] ?? "";
-    final String url = "$baseUrl?lat=$lat&lon=$lon&appid=$apiKey&units=metric";
+    final String url = "$baseUrl?lat=$lat&lon=$lon&appid=$apiKey&units=$unit";
 
     final response = await http.get(Uri.parse(url));
 

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skycast/core/constants/app_strings.dart';
 import 'package:skycast/core/router/app_router.gr.dart';
+import 'package:skycast/core/utils.dart';
 import 'package:skycast/providers/weather_provider.dart';
+import 'package:skycast/providers/weather_units_provider.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -13,6 +15,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final weatherUnitsProvider = Provider.of<WeatherUnitsProvider>(context);
+    String unit = weatherUnitsProvider.unit;
     return Scaffold(
       appBar: AppBar(title: CustomTextField(cityController: _cityController), actions: [LocationButton()]),
       drawer: CustomDrawer(),
@@ -24,21 +28,32 @@ class HomeScreen extends StatelessWidget {
             return Center(child: Text(weatherProvider.errorMessage));
           } else if (weatherProvider.weather != null) {
             final weather = weatherProvider.weather!;
+            String temperatureUnit = Utils.getUnitSymbol(unit);
+            String windSpeedUnit = Utils.getWindSpeedUnit(unit);
+            String temperature = "Temperature: ${weather.temperature}$temperatureUnit";
+            String feelsLike = "Feels Like: ${weather.feelsLike}$temperatureUnit";
+            String tempMin = "Min Temperature: ${weather.tempMin}$temperatureUnit";
+            String tempMax = "Max Temperature: ${weather.tempMax}$temperatureUnit";
+            String windSpeed = "Wind Speed: ${weather.windSpeed} $windSpeedUnit";
+            String humidity = "Humidity: ${weather.humidity}%";
+            String pressure = "Pressure: ${weather.pressure} hPa";
+            String cloudiness = "Cloudiness: ${weather.cloudiness}%";
             return Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Image.network(weather.weatherIcon, height: 100, width: 100),
                   Text(weather.cityName, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   Text(weather.description, style: const TextStyle(fontSize: 22)),
-                  Text("Temperature: ${weather.temperature}°C", style: const TextStyle(fontSize: 22)),
-                  Text("Feels Like: ${weather.feelsLike}°C", style: const TextStyle(fontSize: 22)),
-                  Text("Min Temperature: ${weather.tempMin}°C", style: const TextStyle(fontSize: 22)),
-                  Text("Max Temperature: ${weather.tempMax}°C", style: const TextStyle(fontSize: 22)),
-                  Text("Wind Speed: ${weather.windSpeed} km/h", style: const TextStyle(fontSize: 22)),
-                  Text("Humidity: ${weather.humidity}%", style: const TextStyle(fontSize: 22)),
-                  Text("Pressure: ${weather.pressure} hPa", style: const TextStyle(fontSize: 22)),
-                  Text("Cloudiness: ${weather.cloudiness}%", style: const TextStyle(fontSize: 22)),
+                  Text(temperature, style: const TextStyle(fontSize: 22)),
+                  Text(feelsLike, style: const TextStyle(fontSize: 22)),
+                  Text(tempMin, style: const TextStyle(fontSize: 22)),
+                  Text(tempMax, style: const TextStyle(fontSize: 22)),
+                  Text(windSpeed, style: const TextStyle(fontSize: 22)),
+                  Text(humidity, style: const TextStyle(fontSize: 22)),
+                  Text(pressure, style: const TextStyle(fontSize: 22)),
+                  Text(cloudiness, style: const TextStyle(fontSize: 22)),
                 ],
               ),
             );
@@ -87,9 +102,12 @@ class LocationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final weatherUnitsProvider = Provider.of<WeatherUnitsProvider>(context);
+    String unit = weatherUnitsProvider.unit;
+
     return IconButton(
       icon: Icon(Icons.pin_drop),
-      onPressed: () => context.read<WeatherProvider>().fetchWeatherByLocation(),
+      onPressed: () => context.read<WeatherProvider>().fetchWeatherByLocation(unit),
     );
   }
 }
@@ -102,13 +120,15 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final weatherProvider = Provider.of<WeatherProvider>(context, listen: false);
+    final weatherUnitsProvider = Provider.of<WeatherUnitsProvider>(context);
+    String unit = weatherUnitsProvider.unit;
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.7,
       child: Autocomplete<String>(
         onSelected: (String selection) {
           cityController.text = selection;
-          weatherProvider.fetchWeatherByCity(selection);
+          weatherProvider.fetchWeatherByCity(selection, unit);
         },
         optionsBuilder: (TextEditingValue textEditingValue) async {
           if (textEditingValue.text.isEmpty) return const Iterable<String>.empty();
@@ -129,7 +149,7 @@ class CustomTextField extends StatelessWidget {
                 onPressed: () {
                   FocusScope.of(context).requestFocus(FocusNode());
                   if (controller.text.isNotEmpty) {
-                    weatherProvider.fetchWeatherByCity(controller.text);
+                    weatherProvider.fetchWeatherByCity(controller.text, unit);
                   }
                 },
               ),

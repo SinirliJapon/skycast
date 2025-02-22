@@ -18,14 +18,13 @@ class WeatherProvider with ChangeNotifier {
   String get errorMessage => _errorMessage;
   List<String> get citySuggestions => _citySuggestions;
 
-  Future<void> fetchWeatherByCity(String cityName) async {
+  Future<void> fetchWeatherByCity(String cityName, String unit) async {
     try {
       _isLoading = true;
       _errorMessage = '';
       notifyListeners();
 
-      _weather = await _weatherService.fetchWeather(cityName);
-
+      _weather = await _weatherService.fetchWeather(cityName, unit);
     } catch (e) {
       _errorMessage = "An error occurred: $e";
     } finally {
@@ -34,16 +33,14 @@ class WeatherProvider with ChangeNotifier {
     }
   }
 
-  Future<void> fetchWeatherByLocation() async {
+  Future<void> fetchWeatherByLocation(String unit) async {
     try {
       _isLoading = true;
       _errorMessage = '';
       notifyListeners();
 
       Position position = await _locationService.getCurrentLocation();
-      _weather = await _weatherService.fetchWeatherByLocation(
-          position.latitude, position.longitude);
-
+      _weather = await _weatherService.fetchWeatherByLocation(position.latitude, position.longitude, unit);
     } catch (e) {
       _errorMessage = "An error occurred: $e";
     } finally {
