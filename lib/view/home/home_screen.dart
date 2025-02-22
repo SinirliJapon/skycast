@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skycast/core/constants/app_strings.dart';
+import 'package:skycast/core/router/app_router.gr.dart';
 import 'package:skycast/providers/weather_provider.dart';
 
+@RoutePage()
 class HomeScreen extends StatelessWidget {
   final TextEditingController _cityController = TextEditingController();
 
@@ -57,8 +60,8 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         children: [
           const DrawerHeader(child: Text(AppStrings.appName)),
-          DrawerListTile(title: 'Favorites', icon: Icons.star, onTap: () {}),
-          DrawerListTile(title: 'Settings', icon: Icons.settings, onTap: () {}),
+          DrawerListTile(title: 'Favorites', icon: Icons.star, onTap: () => context.router.push(FavoritesRoute())),
+          DrawerListTile(title: 'Settings', icon: Icons.settings, onTap: () => context.router.push(SettingsRoute())),
           DrawerListTile(title: 'About', icon: Icons.info, onTap: () {}),
         ],
       ),
