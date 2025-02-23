@@ -43,6 +43,25 @@ Map<String, dynamic> _$$WeatherModelImplToJson(_$WeatherModelImpl instance) =>
       'cod': instance.cod,
     };
 
+_$WeeklyForecastModelImpl _$$WeeklyForecastModelImplFromJson(
+  Map<String, dynamic> json,
+) => _$WeeklyForecastModelImpl(
+  dt: (json['dt'] as num).toInt(),
+  temp: Temperature.fromJson(json['temp'] as Map<String, dynamic>),
+  weather:
+      (json['weather'] as List<dynamic>)
+          .map((e) => Weather.fromJson(e as Map<String, dynamic>))
+          .toList(),
+);
+
+Map<String, dynamic> _$$WeeklyForecastModelImplToJson(
+  _$WeeklyForecastModelImpl instance,
+) => <String, dynamic>{
+  'dt': instance.dt,
+  'temp': instance.temp,
+  'weather': instance.weather,
+};
+
 _$CoordImpl _$$CoordImplFromJson(Map<String, dynamic> json) => _$CoordImpl(
   lon: (json['lon'] as num).toDouble(),
   lat: (json['lat'] as num).toDouble(),
@@ -50,6 +69,20 @@ _$CoordImpl _$$CoordImplFromJson(Map<String, dynamic> json) => _$CoordImpl(
 
 Map<String, dynamic> _$$CoordImplToJson(_$CoordImpl instance) =>
     <String, dynamic>{'lon': instance.lon, 'lat': instance.lat};
+
+_$TemperatureImpl _$$TemperatureImplFromJson(Map<String, dynamic> json) =>
+    _$TemperatureImpl(
+      day: (json['day'] as num).toDouble(),
+      min: (json['min'] as num?)?.toDouble(),
+      max: (json['max'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$TemperatureImplToJson(_$TemperatureImpl instance) =>
+    <String, dynamic>{
+      'day': instance.day,
+      'min': instance.min,
+      'max': instance.max,
+    };
 
 _$MainImpl _$$MainImplFromJson(Map<String, dynamic> json) => _$MainImpl(
   temp: (json['temp'] as num).toDouble(),

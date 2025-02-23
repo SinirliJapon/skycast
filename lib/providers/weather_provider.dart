@@ -12,11 +12,13 @@ class WeatherProvider with ChangeNotifier {
   String _errorMessage = "";
   WeatherModel? _weather;
   List<String> _citySuggestions = [];
+  List<dynamic> _weeklyForecast = [];
 
   WeatherModel? get weather => _weather;
   bool get isLoading => _isLoading;
   String get errorMessage => _errorMessage;
   List<String> get citySuggestions => _citySuggestions;
+  List<dynamic> get weeklyForecast => _weeklyForecast;
 
   Future<void> fetchWeatherByCity(String cityName, String unit) async {
     try {
@@ -25,6 +27,9 @@ class WeatherProvider with ChangeNotifier {
       notifyListeners();
 
       _weather = await _weatherService.fetchWeather(cityName, unit);
+      if (_weather != null) {
+        await fetchWeeklyForecast(_weather!.latitude, _weather!.longitude, unit);
+      }
     } catch (e) {
       _errorMessage = "An error occurred: $e";
     } finally {
@@ -41,6 +46,9 @@ class WeatherProvider with ChangeNotifier {
 
       Position position = await _locationService.getCurrentLocation();
       _weather = await _weatherService.fetchWeatherByLocation(position.latitude, position.longitude, unit);
+      if (_weather != null) {
+        await fetchWeeklyForecast(_weather!.latitude, _weather!.longitude, unit);
+      }
     } catch (e) {
       _errorMessage = "An error occurred: $e";
     } finally {
@@ -60,5 +68,21 @@ class WeatherProvider with ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Future<void> fetchWeeklyForecast(double lat, double lon, String unit) async {
+    try {
+      _isLoading = true;
+      _errorMessage = '';
+      notifyListeners();
+
+      _weeklyForecast = await _weatherService.fetchWeeklyForecast(lat, lon, unit);
+    } catch (e) {
+      _weeklyForecast = [];
+      _errorMessage = "An error occurred: $e";
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 }

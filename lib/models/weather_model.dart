@@ -26,8 +26,7 @@ class WeatherModel with _$WeatherModel {
   factory WeatherModel.fromJson(Map<String, dynamic> json) => _$WeatherModelFromJson(json);
 
   String get cityName => name;
-  String get weatherIcon => weather[0].iconUrl;
-  // String get weatherIcon => weather.isNotEmpty ? weather[0].icon : "Unknown";
+  String get weatherIcon => weather.isNotEmpty ? weather[0].iconUrl : "Unknown";
   String get description => weather.isNotEmpty ? weather[0].description : "Unknown";
   double get temperature => main.temp;
   double get tempMin => main.tempMin;
@@ -43,7 +42,29 @@ class WeatherModel with _$WeatherModel {
   int get sunrise => sys.sunrise;
   int get sunset => sys.sunset;
   int get cloudiness => clouds.all;
-  
+}
+
+@freezed
+class WeeklyForecastModel with _$WeeklyForecastModel {
+  const WeeklyForecastModel._();
+
+  const factory WeeklyForecastModel({required int dt, required Temperature temp, required List<Weather> weather}) =
+      _WeeklyForecastModel;
+
+  factory WeeklyForecastModel.fromJson(Map<String, dynamic> json) => _$WeeklyForecastModelFromJson(json);
+
+  String get formattedDate {
+    final date = DateTime.fromMillisecondsSinceEpoch(dt * 1000);
+    return "${date.month}/${date.day}";
+  }
+
+  String get weatherDescription => weather.isNotEmpty ? weather[0].description : "Unknown";
+
+  String get weatherIconUrl {
+    return weather.isNotEmpty ? "https://openweathermap.org/img/wn/${weather[0].icon}@2x.png" : "";
+  }
+
+  double get temperatureDay => temp.day;
 }
 
 @freezed
@@ -51,6 +72,17 @@ class Coord with _$Coord {
   const factory Coord({required double lon, required double lat}) = _Coord;
 
   factory Coord.fromJson(Map<String, dynamic> json) => _$CoordFromJson(json);
+}
+
+@freezed
+class Temperature with _$Temperature {
+  const factory Temperature({
+    required double day,
+    @JsonKey(name: 'min') double? min,
+    @JsonKey(name: 'max') double? max,
+  }) = _Temperature;
+
+  factory Temperature.fromJson(Map<String, dynamic> json) => _$TemperatureFromJson(json);
 }
 
 @freezed

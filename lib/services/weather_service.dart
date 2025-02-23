@@ -51,4 +51,26 @@ class WeatherService {
       return [];
     }
   }
+
+  Future<List<WeeklyForecastModel>> fetchWeeklyForecast(double lat, double lon, String unit) async {
+    final String apiKey = dotenv.env['API_KEY'] ?? "";
+    final String url = "$oneCallUrl?lat=$lat&lon=$lon&appid=$apiKey&units=$unit";
+
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+
+      if (data['daily'] is List) {
+        final List<dynamic> dailyData = data['daily'];
+        return dailyData.map((item) => WeeklyForecastModel.fromJson(item as Map<String, dynamic>)).toList();
+      } else {
+        throw Exception("Invalid data format: 'daily' field is missing or not a list");
+      }
+    } else {
+      throw Exception("Failed to fetch weekly forecast");
+    }
+  }
+
+  //TODO: Add Daily Forecast
 }

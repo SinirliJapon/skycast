@@ -536,6 +536,229 @@ abstract class _WeatherModel extends WeatherModel {
       throw _privateConstructorUsedError;
 }
 
+WeeklyForecastModel _$WeeklyForecastModelFromJson(Map<String, dynamic> json) {
+  return _WeeklyForecastModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$WeeklyForecastModel {
+  int get dt => throw _privateConstructorUsedError;
+  Temperature get temp => throw _privateConstructorUsedError;
+  List<Weather> get weather => throw _privateConstructorUsedError;
+
+  /// Serializes this WeeklyForecastModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of WeeklyForecastModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $WeeklyForecastModelCopyWith<WeeklyForecastModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $WeeklyForecastModelCopyWith<$Res> {
+  factory $WeeklyForecastModelCopyWith(
+    WeeklyForecastModel value,
+    $Res Function(WeeklyForecastModel) then,
+  ) = _$WeeklyForecastModelCopyWithImpl<$Res, WeeklyForecastModel>;
+  @useResult
+  $Res call({int dt, Temperature temp, List<Weather> weather});
+
+  $TemperatureCopyWith<$Res> get temp;
+}
+
+/// @nodoc
+class _$WeeklyForecastModelCopyWithImpl<$Res, $Val extends WeeklyForecastModel>
+    implements $WeeklyForecastModelCopyWith<$Res> {
+  _$WeeklyForecastModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of WeeklyForecastModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? dt = null, Object? temp = null, Object? weather = null}) {
+    return _then(
+      _value.copyWith(
+            dt:
+                null == dt
+                    ? _value.dt
+                    : dt // ignore: cast_nullable_to_non_nullable
+                        as int,
+            temp:
+                null == temp
+                    ? _value.temp
+                    : temp // ignore: cast_nullable_to_non_nullable
+                        as Temperature,
+            weather:
+                null == weather
+                    ? _value.weather
+                    : weather // ignore: cast_nullable_to_non_nullable
+                        as List<Weather>,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of WeeklyForecastModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TemperatureCopyWith<$Res> get temp {
+    return $TemperatureCopyWith<$Res>(_value.temp, (value) {
+      return _then(_value.copyWith(temp: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$WeeklyForecastModelImplCopyWith<$Res>
+    implements $WeeklyForecastModelCopyWith<$Res> {
+  factory _$$WeeklyForecastModelImplCopyWith(
+    _$WeeklyForecastModelImpl value,
+    $Res Function(_$WeeklyForecastModelImpl) then,
+  ) = __$$WeeklyForecastModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int dt, Temperature temp, List<Weather> weather});
+
+  @override
+  $TemperatureCopyWith<$Res> get temp;
+}
+
+/// @nodoc
+class __$$WeeklyForecastModelImplCopyWithImpl<$Res>
+    extends _$WeeklyForecastModelCopyWithImpl<$Res, _$WeeklyForecastModelImpl>
+    implements _$$WeeklyForecastModelImplCopyWith<$Res> {
+  __$$WeeklyForecastModelImplCopyWithImpl(
+    _$WeeklyForecastModelImpl _value,
+    $Res Function(_$WeeklyForecastModelImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of WeeklyForecastModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? dt = null, Object? temp = null, Object? weather = null}) {
+    return _then(
+      _$WeeklyForecastModelImpl(
+        dt:
+            null == dt
+                ? _value.dt
+                : dt // ignore: cast_nullable_to_non_nullable
+                    as int,
+        temp:
+            null == temp
+                ? _value.temp
+                : temp // ignore: cast_nullable_to_non_nullable
+                    as Temperature,
+        weather:
+            null == weather
+                ? _value._weather
+                : weather // ignore: cast_nullable_to_non_nullable
+                    as List<Weather>,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$WeeklyForecastModelImpl extends _WeeklyForecastModel {
+  const _$WeeklyForecastModelImpl({
+    required this.dt,
+    required this.temp,
+    required final List<Weather> weather,
+  }) : _weather = weather,
+       super._();
+
+  factory _$WeeklyForecastModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WeeklyForecastModelImplFromJson(json);
+
+  @override
+  final int dt;
+  @override
+  final Temperature temp;
+  final List<Weather> _weather;
+  @override
+  List<Weather> get weather {
+    if (_weather is EqualUnmodifiableListView) return _weather;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_weather);
+  }
+
+  @override
+  String toString() {
+    return 'WeeklyForecastModel(dt: $dt, temp: $temp, weather: $weather)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$WeeklyForecastModelImpl &&
+            (identical(other.dt, dt) || other.dt == dt) &&
+            (identical(other.temp, temp) || other.temp == temp) &&
+            const DeepCollectionEquality().equals(other._weather, _weather));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    dt,
+    temp,
+    const DeepCollectionEquality().hash(_weather),
+  );
+
+  /// Create a copy of WeeklyForecastModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WeeklyForecastModelImplCopyWith<_$WeeklyForecastModelImpl> get copyWith =>
+      __$$WeeklyForecastModelImplCopyWithImpl<_$WeeklyForecastModelImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$WeeklyForecastModelImplToJson(this);
+  }
+}
+
+abstract class _WeeklyForecastModel extends WeeklyForecastModel {
+  const factory _WeeklyForecastModel({
+    required final int dt,
+    required final Temperature temp,
+    required final List<Weather> weather,
+  }) = _$WeeklyForecastModelImpl;
+  const _WeeklyForecastModel._() : super._();
+
+  factory _WeeklyForecastModel.fromJson(Map<String, dynamic> json) =
+      _$WeeklyForecastModelImpl.fromJson;
+
+  @override
+  int get dt;
+  @override
+  Temperature get temp;
+  @override
+  List<Weather> get weather;
+
+  /// Create a copy of WeeklyForecastModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$WeeklyForecastModelImplCopyWith<_$WeeklyForecastModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Coord _$CoordFromJson(Map<String, dynamic> json) {
   return _Coord.fromJson(json);
 }
@@ -698,6 +921,221 @@ abstract class _Coord implements Coord {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CoordImplCopyWith<_$CoordImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Temperature _$TemperatureFromJson(Map<String, dynamic> json) {
+  return _Temperature.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Temperature {
+  double get day => throw _privateConstructorUsedError;
+  @JsonKey(name: 'min')
+  double? get min => throw _privateConstructorUsedError;
+  @JsonKey(name: 'max')
+  double? get max => throw _privateConstructorUsedError;
+
+  /// Serializes this Temperature to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Temperature
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TemperatureCopyWith<Temperature> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TemperatureCopyWith<$Res> {
+  factory $TemperatureCopyWith(
+    Temperature value,
+    $Res Function(Temperature) then,
+  ) = _$TemperatureCopyWithImpl<$Res, Temperature>;
+  @useResult
+  $Res call({
+    double day,
+    @JsonKey(name: 'min') double? min,
+    @JsonKey(name: 'max') double? max,
+  });
+}
+
+/// @nodoc
+class _$TemperatureCopyWithImpl<$Res, $Val extends Temperature>
+    implements $TemperatureCopyWith<$Res> {
+  _$TemperatureCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Temperature
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? day = null,
+    Object? min = freezed,
+    Object? max = freezed,
+  }) {
+    return _then(
+      _value.copyWith(
+            day:
+                null == day
+                    ? _value.day
+                    : day // ignore: cast_nullable_to_non_nullable
+                        as double,
+            min:
+                freezed == min
+                    ? _value.min
+                    : min // ignore: cast_nullable_to_non_nullable
+                        as double?,
+            max:
+                freezed == max
+                    ? _value.max
+                    : max // ignore: cast_nullable_to_non_nullable
+                        as double?,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$TemperatureImplCopyWith<$Res>
+    implements $TemperatureCopyWith<$Res> {
+  factory _$$TemperatureImplCopyWith(
+    _$TemperatureImpl value,
+    $Res Function(_$TemperatureImpl) then,
+  ) = __$$TemperatureImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    double day,
+    @JsonKey(name: 'min') double? min,
+    @JsonKey(name: 'max') double? max,
+  });
+}
+
+/// @nodoc
+class __$$TemperatureImplCopyWithImpl<$Res>
+    extends _$TemperatureCopyWithImpl<$Res, _$TemperatureImpl>
+    implements _$$TemperatureImplCopyWith<$Res> {
+  __$$TemperatureImplCopyWithImpl(
+    _$TemperatureImpl _value,
+    $Res Function(_$TemperatureImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of Temperature
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? day = null,
+    Object? min = freezed,
+    Object? max = freezed,
+  }) {
+    return _then(
+      _$TemperatureImpl(
+        day:
+            null == day
+                ? _value.day
+                : day // ignore: cast_nullable_to_non_nullable
+                    as double,
+        min:
+            freezed == min
+                ? _value.min
+                : min // ignore: cast_nullable_to_non_nullable
+                    as double?,
+        max:
+            freezed == max
+                ? _value.max
+                : max // ignore: cast_nullable_to_non_nullable
+                    as double?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TemperatureImpl implements _Temperature {
+  const _$TemperatureImpl({
+    required this.day,
+    @JsonKey(name: 'min') this.min,
+    @JsonKey(name: 'max') this.max,
+  });
+
+  factory _$TemperatureImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TemperatureImplFromJson(json);
+
+  @override
+  final double day;
+  @override
+  @JsonKey(name: 'min')
+  final double? min;
+  @override
+  @JsonKey(name: 'max')
+  final double? max;
+
+  @override
+  String toString() {
+    return 'Temperature(day: $day, min: $min, max: $max)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TemperatureImpl &&
+            (identical(other.day, day) || other.day == day) &&
+            (identical(other.min, min) || other.min == min) &&
+            (identical(other.max, max) || other.max == max));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, day, min, max);
+
+  /// Create a copy of Temperature
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TemperatureImplCopyWith<_$TemperatureImpl> get copyWith =>
+      __$$TemperatureImplCopyWithImpl<_$TemperatureImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TemperatureImplToJson(this);
+  }
+}
+
+abstract class _Temperature implements Temperature {
+  const factory _Temperature({
+    required final double day,
+    @JsonKey(name: 'min') final double? min,
+    @JsonKey(name: 'max') final double? max,
+  }) = _$TemperatureImpl;
+
+  factory _Temperature.fromJson(Map<String, dynamic> json) =
+      _$TemperatureImpl.fromJson;
+
+  @override
+  double get day;
+  @override
+  @JsonKey(name: 'min')
+  double? get min;
+  @override
+  @JsonKey(name: 'max')
+  double? get max;
+
+  /// Create a copy of Temperature
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TemperatureImplCopyWith<_$TemperatureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
