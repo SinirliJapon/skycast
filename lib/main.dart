@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp.router(
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
           themeMode: themeProvider.themeMode,
+          theme: themeProvider.lightTheme, 
+          darkTheme: themeProvider.darkTheme,
           routerConfig: _appRouter.config(),
         );
       },

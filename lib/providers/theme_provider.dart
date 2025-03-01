@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skycast/core/theme.dart';
 
 class ThemeProvider with ChangeNotifier {
   static const String _themeKey = 'themeKey';
@@ -25,4 +26,7 @@ class ThemeProvider with ChangeNotifier {
   }
 
   ThemeMode get themeMode => _isDarkMode ? ThemeMode.dark : ThemeMode.light;
+
+  ThemeData get lightTheme => AppTheme.lightTheme;
+  ThemeData get darkTheme => AppTheme.darkTheme; 
 }
