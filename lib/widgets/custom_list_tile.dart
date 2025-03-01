@@ -14,8 +14,6 @@ class CustomListTile extends StatelessWidget {
       leading: Icon(icon),
       title: Text(title),
       trailing: trailing,
-      titleTextStyle: const TextStyle(fontSize: 20),
-      leadingAndTrailingTextStyle: const TextStyle(fontSize: 18),
     );
   }
 }
