@@ -8,9 +8,10 @@ class CustomForecastChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final maxWidth = MediaQuery.of(context).size.width;
     return Container(
       height: 300,
-      width: forecastList.length * 70,
+      width: maxWidth,
       padding: const EdgeInsets.all(30),
       child: LineChart(
         LineChartData(
@@ -73,7 +74,7 @@ class CustomForecastChart extends StatelessWidget {
           getTitlesWidget: (value, meta) {
             int index = value.toInt();
             return index < weeklyForecast.length
-                ? Image.network(weeklyForecast[index].weatherIconUrl, width: 30, height: 30)
+                ? Image.network(weeklyForecast[index].weatherIconUrl, width: 50, height: 50)
                 : SizedBox();
           },
         ),
